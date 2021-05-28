@@ -14,6 +14,7 @@ docker-compose run --service-ports dev
 Then (once in the dev environment):
 
 ```
+cd guestbook/
 lein run migrate
 lein run
 ```

@@ -29,7 +29,8 @@
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.9.3"]
                  [ring/ring-defaults "0.3.2"]
-                 [selmer "1.12.40"]]
+                 [selmer "1.12.40"]
+                 [buddy/buddy-hashers "1.8.1"]]
 
   :min-lein-version "2.0.0"
   

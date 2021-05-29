@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p>Welcome, please login</p><br>
+
+<form name="input" action="/login" method="POST">
+    {% csrf-field %}
+    {% if errors %}
+        <div class="notification is-danger">{{errors|join}}</div>
+    {% endif %}
+
+    Username: <input type="text" name="user"><br>
+    Password: <input type="password" name="pass"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

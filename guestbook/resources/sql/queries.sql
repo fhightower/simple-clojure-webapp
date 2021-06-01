@@ -26,6 +26,11 @@ INSERT INTO guestbook
 (name, message, timestamp)
 VALUES (:name, :message, :timestamp)
 
+-- :name get-user-password :? :1
+-- :doc retrieves a user's password given the user's id
+SELECT pass FROM users
+WHERE id = :id
+
 -- :name get-messages :? :*
 -- :doc selects all available messages
 SELECT * FROM guestbook

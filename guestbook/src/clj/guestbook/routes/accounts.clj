@@ -8,7 +8,7 @@
    [guestbook.db.core :as db]))
 
 (defn login-valid? [params]
-  (hashers/check (get params :pass) (db/get-user-password (get params :user))))
+  (hashers/check (get params :pass) (get (db/get-user-password (assoc params :id (get params :user))) :pass)))
 
 (defn serve-login-page [{:keys [flash] :as request}]
   (layout/render request "login.html" (select-keys flash [:name :message :errors])))

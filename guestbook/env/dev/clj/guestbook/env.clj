@@ -3,10 +3,11 @@
     [selmer.parser :as parser]
     [clojure.tools.logging :as log]
     [guestbook.dev-middleware :refer [wrap-dev]]
-    [guestbook.db.core :as db]))
+    [guestbook.db.core :as db]
+    [buddy.hashers :as hashers]))
 
 (defn create-sample-data []
-  (db/create-user! {:id 1 :first_name "Jane" :last_name "Doe" :email "jane@example.com" :pass "abc"}))
+  (db/create-user! {:id "jane" :first_name "Jane" :last_name "Doe" :email "jane@example.com" :pass (hashers/derive "abc" {:alg :bcrypt+sha512})}))
 
 (def defaults
   {:init

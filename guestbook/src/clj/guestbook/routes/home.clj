@@ -32,7 +32,6 @@
       (response/found "/"))))
 
 (defn home-page [{:keys [flash session] :as request}]
-  (println session)
   (layout/render
    request
    "home.html"

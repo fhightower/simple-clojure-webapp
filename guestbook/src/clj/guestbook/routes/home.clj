@@ -32,6 +32,7 @@
       (response/found "/"))))
 
 (defn home-page [{:keys [flash session] :as request}]
+  (println session)
   (layout/render
    request
    "home.html"
@@ -40,7 +41,7 @@
           (select-keys session [:user]))))
 
 (defn about-page [request]
-  (layout/render request "about.html"))
+  (layout/render request "about.html" (get request :session)))
 
 (defn home-routes []
   [ "" 

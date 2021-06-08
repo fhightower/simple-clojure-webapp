@@ -20,9 +20,14 @@
     (-> (response/found "/login")
         (assoc :flash (assoc params :errors "Invalid login. Please try again.")))))
 
+(defn logout! [{:keys [session]}]
+  (-> (response/found "/")
+      (assoc :session (dissoc session :user))))
+
 (defn account-routes []
   [""
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/login" {:get serve-login-page
-              :post attempt-login!}]])
+              :post attempt-login!}]
+   ["/logout" {:get logout!}]])

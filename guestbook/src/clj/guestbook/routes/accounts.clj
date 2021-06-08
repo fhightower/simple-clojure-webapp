@@ -8,14 +8,15 @@
    [guestbook.db.core :as db]))
 
 (defn login-valid? [params]
-  (hashers/check (get params :pass) (get (db/get-user-password (assoc params :id (get params :user))) :pass)))
+  (hashers/check (get params :pass) (get (db/get-user (assoc params :id (get params :user))) :pass)))
 
 (defn serve-login-page [{:keys [flash] :as request}]
   (layout/render request "login.html" (select-keys flash [:name :message :errors])))
 
-(defn attempt-login [{:keys [params]}]
+(defn attempt-login! [{:keys [params]}]
   (if (login-valid? params)
-    (response/found "/")
+    (-> (response/found "/")
+        (assoc :session {:user (get params :user)}))
     (-> (response/found "/login")
         (assoc :flash (assoc params :errors "Invalid login. Please try again.")))))
 
@@ -24,4 +25,4 @@
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/login" {:get serve-login-page
-              :post attempt-login}]])
+              :post attempt-login!}]])

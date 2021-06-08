@@ -3,6 +3,9 @@
 <div class="content">
   <div class="columns">
     <div class="column">
+      {% if user %}
+        <h2>Welcome, {{ user|title }}!</h2>
+      {% endif %}
       <h3>Messages</h3>
       <ul class="messages">
         {% for item in messages %}

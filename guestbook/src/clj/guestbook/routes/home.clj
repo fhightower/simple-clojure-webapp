@@ -31,12 +31,13 @@
        (assoc params :timestamp (java.util.Date.)))
       (response/found "/"))))
 
-(defn home-page [{:keys [flash] :as request}]
+(defn home-page [{:keys [flash session] :as request}]
   (layout/render
    request
    "home.html"
    (merge {:messages (db/get-messages)}
-          (select-keys flash [:name :message :errors]))))
+          (select-keys flash [:name :message :errors])
+          (select-keys session [:user]))))
 
 (defn about-page [request]
   (layout/render request "about.html"))

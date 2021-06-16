@@ -13,7 +13,7 @@
 (defn serve-login-page [{:keys [flash] :as request}]
   (layout/render request "login.html" (select-keys flash [:name :message :errors])))
 
-(defn attempt-login! [{:keys [params]}]
+(defn login! [{:keys [params]}]
   (if (login-valid? params)
     (-> (response/found "/")
         (assoc :session {:user (get params :user)}))
@@ -29,5 +29,5 @@
    {:middleware [middleware/wrap-csrf
                  middleware/wrap-formats]}
    ["/login" {:get serve-login-page
-              :post attempt-login!}]
+              :post login!}]
    ["/logout" {:get logout!}]])

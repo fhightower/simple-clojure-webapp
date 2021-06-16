@@ -17,11 +17,16 @@
                  #'guestbook.handler/app-routes)
     (f)))
 
-(deftest test-app
+(deftest test-routes
   (testing "main route"
     (let [response ((app) (request :get "/"))]
       (is (= 200 (:status response)))))
 
   (testing "not-found route"
     (let [response ((app) (request :get "/invalid"))]
-      (is (= 404 (:status response))))))
+      (is (= 404 (:status response)))))
+
+  (testing "login route"
+    (let [response ((app) (request :get "/login"))]
+      (is (= 200 (:status response)))
+      (.contains (:body response) "Welcome, please login"))))
